@@ -156,6 +156,15 @@ def logout():
     return redirect(url_for('splash'))
 
 # --- ADMIN ROUTES ---
+@app.route('/admin')
+@login_required
+def admin():
+    if not current_user.is_admin:
+        flash('Admin access required.', 'danger')
+        return redirect(url_for('home'))
+    users = User.query.all()
+    return render_template('admin.html', users=users)
+
 @app.route('/admin_dashboard')
 @login_required
 def admin_dashboard():
@@ -164,6 +173,62 @@ def admin_dashboard():
         return redirect(url_for('home'))
     users = User.query.all()
     return render_template('admin_dashboard.html', users=users)
+
+@app.route('/make_admin/<int:user_id>', methods=['POST'])
+@login_required
+def make_admin(user_id):
+    if not current_user.is_admin:
+        flash('Admin access required.', 'danger')
+        return redirect(url_for('home'))
+    
+    user = User.query.get(user_id)
+    if user:
+        user.is_admin = True
+        db.session.commit()
+        flash(f'{user.username} has been made an admin.', 'success')
+    else:
+        flash('User not found.', 'danger')
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/remove_admin/<int:user_id>', methods=['POST'])
+@login_required
+def remove_admin(user_id):
+    if not current_user.is_admin:
+        flash('Admin access required.', 'danger')
+        return redirect(url_for('home'))
+    
+    if user_id == current_user.id:
+        flash('You cannot revoke your own admin privileges.', 'danger')
+        return redirect(url_for('admin_dashboard'))
+    
+    user = User.query.get(user_id)
+    if user:
+        user.is_admin = False
+        db.session.commit()
+        flash(f'{user.username} is no longer an admin.', 'success')
+    else:
+        flash('User not found.', 'danger')
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/delete_user/<int:user_id>', methods=['POST'])
+@login_required
+def delete_user(user_id):
+    if not current_user.is_admin:
+        flash('Admin access required.', 'danger')
+        return redirect(url_for('home'))
+    
+    if user_id == current_user.id:
+        flash('You cannot delete your own account.', 'danger')
+        return redirect(url_for('admin_dashboard'))
+    
+    user = User.query.get(user_id)
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+        flash(f'{user.username} has been deleted.', 'success')
+    else:
+        flash('User not found.', 'danger')
+    return redirect(url_for('admin_dashboard'))
 
 # --- PASSWORD RESET FLOW ---
 @app.route('/reset_password', methods=['GET', 'POST'])

@@ -91,12 +91,14 @@
     <aside class="admin-sidebar">
         <h2>Nirvana Admin</h2>
         <nav>
-            <a href="{{ url_for('admin_dashboard') }}" class="nav-link active">Dashboard</a>
+            <a href="{{ url_for('admin_dashboard') }}" class="nav-link {% if request.endpoint == 'admin_dashboard' %}active{% endif %}">Dashboard</a>
+            <a href="{{ url_for('admin') }}" class="nav-link {% if request.endpoint == 'admin' %}active{% endif %}">User Management</a>
             <a href="#" class="nav-link">Gallery Management</a>
             <a href="#" class="nav-link">User Requests</a>
             <a href="#" class="nav-link">Site Settings</a>
             <hr style="border-color: rgba(212, 175, 55, 0.2); margin: 20px 0;">
             <a href="{{ url_for('index') }}" class="nav-link">Back to Website</a>
+            <a href="{{ url_for('logout') }}" class="nav-link" style="color: #ff6b6b;">Logout</a>
         </nav>
     </aside>
 
@@ -104,12 +106,140 @@
         <header class="admin-header">
             <h1>{% block admin_title %}Dashboard Overview{% endblock %}</h1>
             <div class="admin-profile">
-                <span style="color: var(--accent-gold); margin-right: 15px;">Welcome, Royal Admin</span>
-                <a href="#" class="btn-gold">Logout</a>
+                <span style="color: var(--accent-gold); margin-right: 15px;">Welcome, {{ current_user.username }}</span>
+                <a href="{{ url_for('logout') }}" class="btn-gold">Logout</a>
             </div>
         </header>
 
-        {% block admin_content %}{% endblock %}
+        {% block admin_content %}
+        <style>
+            .user-management-section {
+                background: var(--admin-card);
+                border-radius: 15px;
+                padding: 30px;
+                border: 1px solid rgba(212, 175, 55, 0.1);
+            }
+
+            .user-management-section h2 {
+                font-family: 'Playfair Display', serif;
+                color: var(--accent-gold);
+                margin-bottom: 20px;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                color: var(--text-light);
+            }
+
+            th {
+                text-align: left;
+                padding: 15px;
+                border-bottom: 2px solid var(--accent-gold);
+                color: var(--accent-gold);
+            }
+
+            td {
+                padding: 15px;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            }
+
+            .action-btn {
+                padding: 6px 12px;
+                margin-right: 5px;
+                border-radius: 4px;
+                border: none;
+                cursor: pointer;
+                font-weight: bold;
+                font-size: 0.85rem;
+                transition: 0.3s;
+            }
+
+            .btn-make-admin {
+                background: #4ade80;
+                color: #000;
+            }
+
+            .btn-remove-admin {
+                background: #fbbf24;
+                color: #000;
+            }
+
+            .btn-delete {
+                background: #ff6b6b;
+                color: #fff;
+            }
+
+            .action-btn:hover {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
+
+            .status-admin {
+                color: var(--accent-gold);
+                font-weight: bold;
+            }
+
+            .status-user {
+                color: #64b0d8;
+            }
+        </style>
+
+        <div class="user-management-section">
+            <h2>System Users Directory</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Management Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if users %}
+                        {% for user in users %}
+                        <tr>
+                            <td>#{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                {% if user.is_admin %}
+                                    <span class="status-admin">👑 Administrator</span>
+                                {% else %}
+                                    <span class="status-user">👤 User</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if user.id != current_user.id %}
+                                    {% if not user.is_admin %}
+                                    <form method="POST" action="{{ url_for('make_admin', user_id=user.id) }}" style="display:inline;">
+                                        <button type="submit" class="action-btn btn-make-admin" onclick="return confirm('Elevate {{ user.username }} to Admin?')">Make Admin</button>
+                                    </form>
+                                    {% else %}
+                                    <form method="POST" action="{{ url_for('remove_admin', user_id=user.id) }}" style="display:inline;">
+                                        <button type="submit" class="action-btn btn-remove-admin" onclick="return confirm('Revoke admin privileges from {{ user.username }}?')">Revoke Admin</button>
+                                    </form>
+                                    {% endif %}
+                                    <form method="POST" action="{{ url_for('delete_user', user_id=user.id) }}" style="display:inline;">
+                                        <button type="submit" class="action-btn btn-delete" onclick="return confirm('Permanently delete {{ user.username }}?')">Delete</button>
+                                    </form>
+                                {% else %}
+                                    <span style="color: rgba(212, 175, 55, 0.6);">— Your Account</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #999; padding: 40px;">No users in system</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        {% endblock %}
     </main>
 </div>
 {% endblock %}

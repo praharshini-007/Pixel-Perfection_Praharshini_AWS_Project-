@@ -84,57 +84,74 @@
 
 <div class="stats-grid">
     <div class="stat-card">
-        <h3>Total Creations</h3>
-        <div class="stat-number">1,284</div>
+        <h3>Total Users</h3>
+        <div class="stat-number">{{ users|length }}</div>
+    </div>
+    <div class="stat-card">
+        <h3>Admin Users</h3>
+        <div class="stat-number">{{ users|selectattr('is_admin')|list|length }}</div>
     </div>
     <div class="stat-card">
         <h3>Active Users</h3>
-        <div class="stat-number">452</div>
+        <div class="stat-number">{{ users|length }}</div>
     </div>
     <div class="stat-card">
-        <h3>Gallery Items</h3>
-        <div class="stat-number">89</div>
-    </div>
-    <div class="stat-card">
-        <h3>Storage Used</h3>
-        <div class="stat-number">72%</div>
+        <h3>System Status</h3>
+        <div class="stat-number" style="font-size: 1rem; color: #4ade80;">Operational</div>
     </div>
 </div>
 
 <div class="data-section">
-    <h2>Recent Digital Masterpieces</h2>
+    <h2>User Management</h2>
     <table>
         <thead>
             <tr>
-                <th>User</th>
-                <th>Project Name</th>
-                <th>Date</th>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Email</th>
                 <th>Status</th>
-                <th>Action</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Arjun Singh</td>
-                <td>Himalayan Dawn</td>
-                <td>Oct 24, 2025</td>
-                <td><span class="status-badge">Processed</span></td>
-                <td><a href="#" style="color: var(--accent-gold);">View</a></td>
-            </tr>
-            <tr>
-                <td>Priya Sharma</td>
-                <td>Royal Palace Edit</td>
-                <td>Oct 23, 2025</td>
-                <td><span class="status-badge">Pending</span></td>
-                <td><a href="#" style="color: var(--accent-gold);">View</a></td>
-            </tr>
-            <tr>
-                <td>Kabir Das</td>
-                <td>Lotus Temple Noir</td>
-                <td>Oct 22, 2025</td>
-                <td><span class="status-badge">Processed</span></td>
-                <td><a href="#" style="color: var(--accent-gold);">View</a></td>
-            </tr>
+            {% if users %}
+                {% for user in users %}
+                <tr>
+                    <td>#{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        {% if user.is_admin %}
+                            <span class="status-badge" style="background: rgba(212, 175, 55, 0.2); color: var(--accent-gold);">Admin</span>
+                        {% else %}
+                            <span class="status-badge" style="background: rgba(100, 150, 200, 0.2); color: #64b0d8;">User</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user.id != current_user.id %}
+                            {% if not user.is_admin %}
+                            <form method="POST" action="{{ url_for('make_admin', user_id=user.id) }}" style="display:inline;">
+                                <button type="submit" class="btn-gold" style="padding: 5px 10px; font-size: 0.85rem; background: #4ade80; color: #000;" onclick="return confirm('Make {{ user.username }} an admin?')">Make Admin</button>
+                            </form>
+                            {% else %}
+                            <form method="POST" action="{{ url_for('remove_admin', user_id=user.id) }}" style="display:inline;">
+                                <button type="submit" class="btn-gold" style="padding: 5px 10px; font-size: 0.85rem; background: #fbbf24; color: #000;" onclick="return confirm('Remove admin from {{ user.username }}?')">Remove Admin</button>
+                            </form>
+                            {% endif %}
+                            <form method="POST" action="{{ url_for('delete_user', user_id=user.id) }}" style="display:inline;">
+                                <button type="submit" class="btn-gold" style="padding: 5px 10px; font-size: 0.85rem; background: #ff6b6b; color: #fff;" onclick="return confirm('Delete {{ user.username }}? This action cannot be undone.')">Delete</button>
+                            </form>
+                        {% else %}
+                            <span style="color: var(--accent-gold);">(Your Account)</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center; color: #999;">No users found</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 </div>
