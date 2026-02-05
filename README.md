@@ -1,5 +1,5 @@
 
-# 👑 Nirvana | Royal Photo Artistry Studio
+# 👑 Nirvana Heritage | Royal Photo Artistry Studio
 
 **Nirvana** is a high-performance, web-based image processing suite that blends professional-grade computer vision with a premium "Royal" aesthetic. Designed to function as a digital alchemy studio, it enables users to perform complex image transformations directly in the browser through a sophisticated and intuitive interface.
 
