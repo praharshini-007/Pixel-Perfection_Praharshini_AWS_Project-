@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* 1. Global Page Background */
+    body {
+        background-color: #0a2e24 !important; /* Nirvana Emerald */
+        margin: 0;
+        overflow-x: hidden;
+    }
+
+    /* 2. Wrapper */
+    .auth-page-wrapper {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(circle at center, #0d3b2e 0%, #0a2e24 100%) !important;
+        padding: 20px;
+    }
+
+    /* 3. Heritage Glass Card Style */
+    .glass-signup-card {
+        background: rgba(10, 46, 36, 0.75) !important;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(212, 175, 55, 0.3) !important;
+        padding: 50px 40px;
+        border-radius: 25px;
+        width: 100%;
+        max-width: 450px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    .reset-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        color: #ffffff;
+        margin-bottom: 10px;
+        text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .reset-subtitle {
+        color: #f4e4bc; /* Parchment color */
+        font-family: 'Quicksand', sans-serif;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        margin-bottom: 30px;
+        display: block;
+        opacity: 0.8;
+    }
+
+    /* 4. Input Field Styling */
+    .input-group {
+        position: relative;
+        margin-bottom: 25px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .input-group i {
+        position: absolute;
+        left: 20px;
+        color: #d4af37; /* Antique Gold */
+        z-index: 10;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 16px 20px 16px 55px;
+        border-radius: 12px;
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        background: rgba(0, 0, 0, 0.3);
+        color: white;
+        outline: none;
+        transition: 0.3s;
+        box-sizing: border-box;
+        font-size: 1rem;
+    }
+
+    .input-group input:focus {
+        border-color: #d4af37;
+        background: rgba(212, 175, 55, 0.05);
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+    }
+
+    /* 5. Gold Button Styling */
+    .btn-heritage-action {
+        width: 100%;
+        padding: 18px;
+        background: #d4af37 !important;
+        color: #0a2e24; /* Emerald text for contrast */
+        border: none;
+        border-radius: 12px;
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-heritage-action:hover {
+        background: #f4e4bc !important;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(212, 175, 55, 0.2);
+    }
+
+    .back-link {
+        margin-top: 25px;
+        display: block;
+        color: #f4e4bc;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: 0.3s;
+        opacity: 0.7;
+    }
+
+    .back-link:hover { 
+        color: #d4af37; 
+        opacity: 1;
+    }
+</style>
+
+<div class="auth-page-wrapper">
+    <div class="glass-signup-card">
+        <div style="margin-bottom: 20px;">
+            <i class="fas fa-key-skeleton" style="font-size: 2.5rem; color: #d4af37; filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));"></i>
+        </div>
+        
+        <h2 class="reset-title">Restore Access</h2>
+        <span class="reset-subtitle">Enter your artisan email to recover your vault</span>
+
+        <form method="POST" action="{{ url_for('reset_request') }}">
+            <div class="input-group">
+                <i class="fas fa-envelope-open-text"></i>
+                <input type="email" name="email" placeholder="Email Address" required>
+            </div>
+            
+            <button type="submit" class="btn-heritage-action">Send Recovery Link</button>
+        </form>
+
+        <a href="{{ url_for('login') }}" class="back-link">
+            <i class="fas fa-chevron-left" style="font-size: 0.8rem; margin-right: 5px;"></i> Return to Sign In
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-page-wrapper" style="min-height: 92vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; background: radial-gradient(circle at center, #0d3b2e 0%, #0a2e24 100%);">
+    <div class="glass-signup-card" style="background: rgba(10, 46, 36, 0.7); backdrop-filter: blur(15px); padding: 45px; border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.3); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); width: 100%; max-width: 450px; box-sizing: border-box;">
+        
+        <div style="text-align: center; margin-bottom: 25px;">
+            <i class="fas fa-crown" style="font-size: 2.5rem; color: #d4af37; filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));"></i>
+        </div>
+        
+        <div class="auth-header" style="text-align: center;">
+            <h2 style="font-family: 'Playfair Display', serif; color: #ffffff; font-size: 2.2rem; margin-bottom: 10px; letter-spacing: 1px;">Welcome <span style="color: #d4af37;">Back</span></h2>
+            <p style="text-align: center; color: #f4e4bc; margin-bottom: 35px; opacity: 0.8; font-family: 'Quicksand', sans-serif; letter-spacing: 1px; text-transform: uppercase; font-size: 0.8rem;">Enter the Artisan Studio</p>
+        </div>
+
+        <form method="POST">
+            <div class="input-field" style="position: relative; margin-bottom: 20px;">
+                <i class="fas fa-envelope-open-text" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #d4af37;"></i>
+                <input type="email" name="email" placeholder="Email Address" required 
+                    style="width: 100%; padding: 18px 20px 18px 55px; border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; font-size: 1rem; outline: none; background: rgba(0, 0, 0, 0.3); color: white; box-sizing: border-box; transition: 0.3s; font-family: 'Quicksand', sans-serif;">
+            </div>
+            
+            <div class="input-field" style="position: relative; margin-bottom: 30px;">
+                <i class="fas fa-key" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #d4af37;"></i>
+                <input type="password" name="password" placeholder="Password" required 
+                    style="width: 100%; padding: 18px 20px 18px 55px; border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; font-size: 1rem; outline: none; background: rgba(0, 0, 0, 0.3); color: white; box-sizing: border-box; transition: 0.3s; font-family: 'Quicksand', sans-serif;">
+            </div>
+
+            <button type="submit" class="account-button signup" style="width: 100%; padding: 18px; background: #d4af37; color: #0a2e24; border: none; border-radius: 8px; font-size: 1rem; font-weight: 800; cursor: pointer; transition: 0.4s; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); margin-bottom: 25px; font-family: 'Playfair Display', serif; text-transform: uppercase; letter-spacing: 2px;">
+                Authorize Access
+            </button>
+            
+            <div style="text-align: center; font-size: 0.9rem; font-family: 'Quicksand', sans-serif;">
+                <p style="color: #f4e4bc; margin-bottom: 12px; opacity: 0.9;">
+                    New to Nirvana? <a href="{{ url_for('signup') }}" style="color: #d4af37; text-decoration: none; font-weight: 700; border-bottom: 1px solid #d4af37;">Join the Elite</a>
+                </p>
+                <p>
+                    <a href="{{ url_for('reset_request') }}" style="color: #f4e4bc; text-decoration: none; opacity: 0.6; font-size: 0.8rem;">Forgot Your Credentials?</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Heritage Input Focus Effects */
+    input:focus {
+        border-color: #d4af37 !important;
+        background: rgba(212, 175, 55, 0.05) !important;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+    }
+    
+    /* Button Hover - Nirvana Style */
+    .account-button.signup:hover {
+        transform: translateY(-3px);
+        background: #f4e4bc !important;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Fix placeholder color for Heritage theme */
+    input::placeholder {
+        color: rgba(244, 228, 188, 0.3);
+        font-weight: 300;
+    }
+</style>
+{% endblock %}

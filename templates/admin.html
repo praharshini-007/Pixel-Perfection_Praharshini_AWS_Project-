@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --admin-sidebar: #051612;
+        --admin-card: #0d3b2e;
+        --accent-gold: #d4af37;
+        --text-light: #f4e4bc;
+    }
+
+    .admin-wrapper {
+        display: flex;
+        min-height: 100vh;
+        background-color: var(--bg-midnight);
+    }
+
+    /* --- Sidebar --- */
+    .admin-sidebar {
+        width: 250px;
+        background: var(--admin-sidebar);
+        border-right: 1px solid var(--accent-gold);
+        padding: 30px 20px;
+    }
+
+    .admin-sidebar h2 {
+        font-family: 'Dancing Script', cursive;
+        color: var(--accent-gold);
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .nav-link {
+        display: block;
+        padding: 12px 15px;
+        color: var(--text-light);
+        text-decoration: none;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        transition: 0.3s;
+        font-weight: 500;
+    }
+
+    .nav-link:hover, .nav-link.active {
+        background: rgba(212, 175, 55, 0.1);
+        color: var(--accent-gold);
+        border-left: 4px solid var(--accent-gold);
+    }
+
+    /* --- Main Content Area --- */
+    .admin-main {
+        flex: 1;
+        padding: 40px;
+    }
+
+    .admin-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        padding-bottom: 20px;
+    }
+
+    .admin-header h1 {
+        font-family: 'Papyrus', serif;
+        font-size: 2.2rem;
+        color: #ffffff;
+    }
+
+    .btn-gold {
+        background: var(--accent-gold);
+        color: #000;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 700;
+        transition: 0.3s;
+    }
+
+    .btn-gold:hover {
+        background: #b8962d;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    }
+</style>
+
+<div class="admin-wrapper">
+    <aside class="admin-sidebar">
+        <h2>Nirvana Admin</h2>
+        <nav>
+            <a href="{{ url_for('admin_dashboard') }}" class="nav-link active">Dashboard</a>
+            <a href="#" class="nav-link">Gallery Management</a>
+            <a href="#" class="nav-link">User Requests</a>
+            <a href="#" class="nav-link">Site Settings</a>
+            <hr style="border-color: rgba(212, 175, 55, 0.2); margin: 20px 0;">
+            <a href="{{ url_for('index') }}" class="nav-link">Back to Website</a>
+        </nav>
+    </aside>
+
+    <main class="admin-main">
+        <header class="admin-header">
+            <h1>{% block admin_title %}Dashboard Overview{% endblock %}</h1>
+            <div class="admin-profile">
+                <span style="color: var(--accent-gold); margin-right: 15px;">Welcome, Royal Admin</span>
+                <a href="#" class="btn-gold">Logout</a>
+            </div>
+        </header>
+
+        {% block admin_content %}{% endblock %}
+    </main>
+</div>
+{% endblock %}

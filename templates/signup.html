@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-page-wrapper" style="min-height: 92vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; background: radial-gradient(circle at center, #0d3b2e 0%, #0a2e24 100%);">
+    <div class="glass-signup-card" style="background: rgba(10, 46, 36, 0.75); backdrop-filter: blur(15px); padding: 40px; border-radius: 25px; border: 1px solid rgba(212, 175, 55, 0.3); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); width: 100%; max-width: 450px; box-sizing: border-box;">
+        
+        <div style="text-align: center; margin-bottom: 20px;">
+            <i class="fas fa-feather-pointed" style="font-size: 2.5rem; color: #d4af37;"></i>
+        </div>
+        
+        <div class="auth-header" style="text-align: center;">
+            <h2 style="font-family: 'Playfair Display', serif; color: #ffffff; font-size: 2.2rem; margin-bottom: 5px;">Join the <span style="color: #d4af37;">Heritage</span></h2>
+            <p style="margin-bottom: 30px; color: #f4e4bc; opacity: 0.8; font-family: 'Quicksand', sans-serif;">Begin your creative legacy with us</p>
+        </div>
+
+        <form method="POST" action="{{ url_for('signup') }}">
+            <div class="input-field" style="position: relative; margin-bottom: 20px;">
+                <i class="fas fa-signature" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #d4af37;"></i>
+                <input type="text" name="username" placeholder="Artisan Name" required 
+                    style="width: 100%; padding: 16px 20px 16px 55px; border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; font-size: 1rem; outline: none; background: rgba(0, 0, 0, 0.3); color: white; box-sizing: border-box; transition: 0.3s;">
+            </div>
+
+            <div class="input-field" style="position: relative; margin-bottom: 20px;">
+                <i class="fas fa-envelope" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #d4af37;"></i>
+                <input type="email" name="email" placeholder="Email Address" required 
+                    style="width: 100%; padding: 16px 20px 16px 55px; border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; font-size: 1rem; outline: none; background: rgba(0, 0, 0, 0.3); color: white; box-sizing: border-box; transition: 0.3s;">
+            </div>
+            
+            <div class="input-field" style="position: relative; margin-bottom: 30px;">
+                <i class="fas fa-shield-halved" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #d4af37;"></i>
+                <input type="password" name="password" placeholder="Secure Password" required 
+                    style="width: 100%; padding: 16px 20px 16px 55px; border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; font-size: 1rem; outline: none; background: rgba(0, 0, 0, 0.3); color: white; box-sizing: border-box; transition: 0.3s;">
+            </div>
+
+            <button type="submit" class="account-button signup" style="width: 100%; padding: 18px; background: #d4af37; color: #0a2e24; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: 0.4s; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); font-family: 'Playfair Display', serif;">
+                Create Account
+            </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 25px; color: #f4e4bc;">
+            <p style="font-size: 0.95rem; opacity: 0.9;">
+                Already a member? <a href="{{ url_for('login') }}" style="color: #d4af37; font-weight: bold; text-decoration: none; border-bottom: 1px solid #d4af37;">Sign In here</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Heritage Focus Effects */
+    input:focus {
+        border-color: #d4af37 !important;
+        background: rgba(212, 175, 55, 0.05) !important;
+        box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+    }
+    
+    /* Button Hover Effect */
+    .account-button.signup:hover {
+        transform: translateY(-2px);
+        background: #f4e4bc !important;
+        box-shadow: 0 12px 25px rgba(212, 175, 55, 0.2);
+    }
+
+    /* Placeholder Styling */
+    input::placeholder {
+        color: rgba(244, 228, 188, 0.3);
+    }
+</style>
+{% endblock %}

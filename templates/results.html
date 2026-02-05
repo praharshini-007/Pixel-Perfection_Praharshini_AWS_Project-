@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+    :root {
+        --emerald-deep: #0a2e24;
+        --emerald-glow: #114d3d;
+        --gold-metallic: #d4af37;
+        --parchment: #f4e4bc;
+    }
+
+    .results-wrapper {
+        min-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 20px;
+        background: radial-gradient(circle at center, var(--emerald-glow) 0%, var(--emerald-deep) 100%);
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    .reveal-card {
+        background: rgba(5, 22, 18, 0.85);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 30px;
+        width: 100%;
+        max-width: 900px;
+        padding: 40px;
+        text-align: center;
+        box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+    }
+
+    .reveal-header {
+        margin-bottom: 35px;
+    }
+
+    .reveal-header h2 {
+        font-family: 'Playfair Display', serif;
+        color: #fff;
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+    }
+
+    .reveal-header span {
+        color: var(--gold-metallic);
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 4px;
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    /* Image Display Area */
+    .masterpiece-container {
+        position: relative;
+        margin: 0 auto 40px;
+        border: 8px solid #051612;
+        outline: 1px solid var(--gold-metallic);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        max-width: 100%;
+        display: inline-block;
+    }
+
+    .masterpiece-img {
+        max-width: 100%;
+        max-height: 70vh;
+        display: block;
+        transition: transform 0.5s ease;
+    }
+
+    .masterpiece-img:hover {
+        transform: scale(1.02);
+    }
+
+    /* Action Buttons */
+    .results-actions {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-download {
+        background: var(--gold-metallic);
+        color: var(--emerald-deep);
+        padding: 18px 40px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 800;
+        font-family: 'Playfair Display', serif;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: 0.3s;
+        border: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .btn-download:hover {
+        background: var(--parchment);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-secondary {
+        background: transparent;
+        color: var(--gold-metallic);
+        padding: 18px 40px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        border: 1px solid var(--gold-metallic);
+        transition: 0.3s;
+    }
+
+    .btn-secondary:hover {
+        background: rgba(212, 175, 55, 0.1);
+        color: #fff;
+    }
+
+    /* Social Share (Optional) */
+    .share-prompt {
+        margin-top: 30px;
+        color: var(--parchment);
+        font-size: 0.9rem;
+        opacity: 0.7;
+    }
+
+    @media (max-width: 600px) {
+        .reveal-header h2 { font-size: 1.8rem; }
+        .results-actions { flex-direction: column; }
+    }
+</style>
+
+<div class="results-wrapper">
+    <div class="reveal-card">
+        <div class="reveal-header">
+            <span>Development Complete</span>
+            <h2>Your Nirvana Masterpiece</h2>
+        </div>
+
+        <div class="masterpiece-container">
+            {% if image_url %}
+                <img src="{{ url_for('static', filename='uploads/' + image_url) }}" class="masterpiece-img" alt="Edited Heritage Photo">
+            {% else %}
+                <p style="color: var(--parchment); padding: 50px;">No masterpiece found. Please return to the studio.</p>
+            {% endif %}
+        </div>
+
+        <div class="results-actions">
+            {% if image_url %}
+                <a href="{{ url_for('static', filename='uploads/' + image_url) }}" download="Nirvana_Heritage_Edit" class="btn-download">
+                    <i class="fas fa-file-download"></i> Export Masterpiece
+                </a>
+            {% endif %}
+            <a href="{{ url_for('create') }}" class="btn-secondary">
+                <i class="fas fa-redo"></i> Create Another
+            </a>
+        </div>
+
+        <div class="share-prompt">
+            <p>Your edit is temporarily stored in the private heritage vault.</p>
+        </div>
+    </div>
+
+    <a href="{{ url_for('index') }}" style="margin-top: 30px; color: var(--gold-metallic); text-decoration: none; font-size: 0.9rem;">
+        <i class="fas fa-chevron-left"></i> Return to Main Gallery
+    </a>
+</div>
+
+{% endblock %}

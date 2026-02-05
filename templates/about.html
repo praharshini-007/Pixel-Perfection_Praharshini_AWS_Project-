@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --brand-accent: #d4af37;
+        --brand-secondary: #800000;
+        --text-main: #f4e4bc;
+        --bg-midnight: #0a2e24;
+        --card-dark: rgba(212, 175, 55, 0.05);
+    }
+
+    body {
+        font-family: 'Quicksand', sans-serif;
+        background-color: var(--bg-midnight);
+        color: var(--text-main);
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    /* --- Hero Section --- */
+    .about-hero {
+        padding: 60px 10%;
+        display: flex;
+        flex-direction: row-reverse; 
+        align-items: center;
+        gap: 60px;
+        background: radial-gradient(circle at top right, #144534, var(--bg-midnight));
+    }
+
+    .hero-text { flex: 1.2; }
+    .hero-image { 
+        flex: 0.8; 
+        min-height: 300px; 
+        background: rgba(212, 175, 55, 0.1); /* Fallback background */
+        border-radius: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid var(--brand-accent);
+    }
+
+    .hero-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 23px;
+        box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        display: block;
+    }
+
+    .about-title {
+        font-family: 'Dancing Script', cursive;
+        font-size: 4.5rem;
+        color: #ffffff; 
+        margin: 0 0 10px 0;
+    }
+
+    .about-title span { 
+        color: var(--brand-accent); 
+        text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        color: var(--brand-accent);
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        display: block;
+        font-weight: 700;
+    }
+
+    /* --- Timeline Section --- */
+    .story-container { padding: 60px 10%; }
+    .timeline {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+    }
+
+    .timeline-card {
+        background: var(--card-dark);
+        padding: 40px;
+        border-radius: 30px;
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        backdrop-filter: blur(10px);
+        transition: 0.4s ease;
+    }
+
+    .timeline-card:hover {
+        transform: translateY(-10px);
+        background: rgba(212, 175, 55, 0.1);
+        border-color: var(--brand-accent);
+    }
+
+    .year {
+        font-family: 'Dancing Script', cursive;
+        font-size: 2.8rem;
+        color: var(--brand-accent);
+        display: block;
+    }
+
+    /* --- Gallery Section --- */
+    .memory-gallery {
+        padding: 80px 10%;
+        background-color: #07211a;
+        text-align: center;
+    }
+
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin-top: 40px;
+    }
+
+    .gallery-item {
+        overflow: hidden;
+        border-radius: 20px;
+        height: 350px;
+        background: var(--card-dark);
+        padding: 10px;
+        border: 1px solid rgba(212, 175, 55, 0.15);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 85%;
+        object-fit: cover;
+        border-radius: 15px;
+        transition: transform 0.5s ease;
+    }
+
+    .gallery-label {
+        margin-top: 10px;
+        font-weight: 600;
+        color: var(--brand-accent);
+        font-family: 'Playfair Display', serif;
+    }
+</style>
+
+<section class="about-hero">
+    <div class="hero-text">
+        <span class="subtitle">A Royal Legacy</span>
+        <h1 class="about-title">The <span>Nirvana</span> Story</h1>
+        <p>Every photo tells a story, and ours began with a simple dream: to bridge the gap between imagination and reality. We believe that a photograph is more than just pixels—it is a conversation between light and emotion.</p>
+        <p>What started as an inspired vision <strong>in 2025</strong> has blossomed into <strong>Nirvana</strong>, a sanctuary designed for digital clarity and artistic soul.</p>
+    </div>
+    <div class="hero-image">
+        <img src="{{ url_for('static', filename='images/ourstory.png') }}" alt="Nirvana Photo Lab Story">
+    </div>
+</section>
+
+<section class="story-container">
+    <div class="timeline">
+        <div class="timeline-card">
+            <span class="year">2025</span>
+            <h3 style="font-size: 2rem;">The First Light</h3>
+            <p>Our journey began with a vision to make high-end, artistic photo editing accessible to every creator through intuitive technology.</p>
+        </div>
+        <div class="timeline-card" style="border-bottom: 4px solid var(--brand-accent);">
+            <span class="year">2026</span>
+            <h3 style="font-size: 2rem;">Digital Evolution</h3>
+            <p>We launched our advanced AI Photo Lab, bringing professional-grade precision controls directly to your browser.</p>
+        </div>
+        <div class="timeline-card">
+            <span class="year">Future</span>
+            <h3 style="font-size: 2rem;">Pure Creation</h3>
+            <p>Building a world where visual engineering meets pure heart to reveal the hidden magic in every single frame.</p>
+        </div>
+    </div>
+</section>
+
+<section class="memory-gallery">
+    <h2 class="about-title" style="font-size: 3.5rem;">Our <span>Mission</span></h2>
+    <p>To empower creators by turning digital noise into visual masterpieces.</p>
+    
+    <div class="gallery-grid">
+        <div class="gallery-item">
+            <img src="{{ url_for('static', filename='images/story1.png') }}" alt="Vision">
+            <span class="gallery-label">Vision</span>
+        </div>
+        <div class="gallery-item">
+            <img src="{{ url_for('static', filename='images/story2.png') }}" alt="Innovation">
+            <span class="gallery-label">Innovation</span>
+        </div>
+    </div>
+</section>
+{% endblock %}

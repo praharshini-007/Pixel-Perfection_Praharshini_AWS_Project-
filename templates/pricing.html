@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+    :root {
+        --brand-accent: #d4af37; /* Metallic Gold */
+        --bg-midnight: #0a2e24; /* Royal Emerald */
+        --card-bg: rgba(255, 255, 255, 0.03);
+        --text-cream: #f4e4bc;
+    }
+
+    .pricing-wrapper {
+        padding: 80px 10%;
+        background: radial-gradient(circle at top, #144534, var(--bg-midnight));
+        color: var(--text-cream);
+        text-align: center;
+        min-height: 100vh;
+    }
+
+    .pricing-header {
+        margin-bottom: 60px;
+    }
+
+    .pricing-header h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 3.5rem;
+        margin-bottom: 10px;
+    }
+
+    .pricing-header h1 span {
+        color: var(--brand-accent);
+    }
+
+    /* --- Pricing Grid --- */
+    .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .pricing-card {
+        background: var(--card-bg);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        border-radius: 30px;
+        padding: 50px 30px;
+        transition: 0.4s ease;
+        backdrop-filter: blur(10px);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .pricing-card.popular {
+        border: 2px solid var(--brand-accent);
+        transform: scale(1.05);
+        background: rgba(212, 175, 55, 0.05);
+    }
+
+    .badge {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--brand-accent);
+        color: #0a2e24;
+        padding: 5px 20px;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+    }
+
+    .pricing-card:hover {
+        transform: translateY(-10px);
+        background: rgba(212, 175, 55, 0.08);
+        border-color: var(--brand-accent);
+    }
+
+    .plan-name {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        letter-spacing: 2px;
+    }
+
+    .plan-price {
+        font-size: 3rem;
+        font-family: 'Playfair Display', serif;
+        margin-bottom: 30px;
+        color: #fff;
+    }
+
+    .plan-price span {
+        font-size: 1rem;
+        opacity: 0.6;
+    }
+
+    /* --- Features List --- */
+    .features-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 40px 0;
+        text-align: left;
+        flex-grow: 1;
+    }
+
+    .features-list li {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.95rem;
+    }
+
+    .features-list li i {
+        color: var(--brand-accent);
+    }
+
+    /* --- Buttons --- */
+    .btn-pricing {
+        padding: 15px 30px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 700;
+        transition: 0.3s;
+        border: 2px solid var(--brand-accent);
+    }
+
+    .btn-free {
+        color: var(--brand-accent);
+        background: transparent;
+    }
+
+    .btn-premium {
+        background: var(--brand-accent);
+        color: #0a2e24;
+    }
+
+    .btn-pricing:hover {
+        background: #f4e4bc;
+        color: #0a2e24;
+        border-color: #f4e4bc;
+    }
+</style>
+
+<div class="pricing-wrapper">
+    <div class="pricing-header">
+        <span style="color: var(--brand-accent); letter-spacing: 5px; font-weight: 700;">CHOOSE YOUR LEGACY</span>
+        <h1>Studio <span>Pricing</span></h1>
+        <p style="opacity: 0.7;">Select a plan that fits your creative vision.</p>
+    </div>
+
+    <div class="pricing-grid">
+        <div class="pricing-card">
+            <div class="plan-name">ESSENTIAL</div>
+            <div class="plan-price">$0 <span>/ month</span></div>
+            <ul class="features-list">
+                <li><i class="fas fa-check"></i> Standard Denoising</li>
+                <li><i class="fas fa-check"></i> 5 Image Uploads Per Day</li>
+                <li><i class="fas fa-check"></i> Web Resolution Only</li>
+                <li style="opacity: 0.4;"><i class="fas fa-times"></i> Advanced AI Enhancements</li>
+                <li style="opacity: 0.4;"><i class="fas fa-times"></i> Commercial License</li>
+            </ul>
+            <a href="{{ url_for('signup') }}" class="btn-pricing btn-free">Get Started</a>
+        </div>
+
+        <div class="pricing-card popular">
+            <div class="badge">Most Popular</div>
+            <div class="plan-name">HERITAGE PRO</div>
+            <div class="plan-price">$19 <span>/ month</span></div>
+            <ul class="features-list">
+                <li><i class="fas fa-check"></i> All Essential Features</li>
+                <li><i class="fas fa-check"></i> Unlimited Image Uploads</li>
+                <li><i class="fas fa-check"></i> 4K Ultra-HD Processing</li>
+                <li><i class="fas fa-check"></i> Custom AI Filters</li>
+                <li><i class="fas fa-check"></i> Priority Processing</li>
+            </ul>
+            <a href="{{ url_for('create') }}" class="btn-pricing btn-premium">Join the Elite</a>
+        </div>
+
+        <div class="pricing-card">
+            <div class="plan-name">PRESTIGE</div>
+            <div class="plan-price">$49 <span>/ month</span></div>
+            <ul class="features-list">
+                <li><i class="fas fa-check"></i> All Pro Features</li>
+                <li><i class="fas fa-check"></i> Multi-user Dashboard</li>
+                <li><i class="fas fa-check"></i> RAW Image Support</li>
+                <li><i class="fas fa-check"></i> 24/7 Concierge Support</li>
+                <li><i class="fas fa-check"></i> Full Commercial Rights</li>
+            </ul>
+            <a href="{{ url_for('contact') }}" class="btn-pricing btn-free">Contact Sales</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

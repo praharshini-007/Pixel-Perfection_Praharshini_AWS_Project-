@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* 1. Global Page Background - Deep Royal Emerald */
+    body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        background-color: #0a2e24 !important; /* Nirvana Base Emerald */
+    }
+
+    /* 2. Hero Wrapper - Subtle Vignette Gradient */
+    .hero-fluid-wrapper {
+        min-height: 95vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(circle at center, #0d3b2e 0%, #0a2e24 100%) !important;
+        padding: 40px 6%;
+    }
+
+    /* 3. Main Split Container */
+    .hero-split-container {
+        display: flex;
+        width: 100%;
+        max-width: 1400px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 60px;
+    }
+
+    /* 4. Text Area */
+    .hero-text-content {
+        flex: 1; 
+        text-align: left;
+    }
+
+    .hero-tagline {
+        color: #d4af37 !important; /* Antique Gold */
+        font-weight: 700;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+        display: block;
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    .hero-title {
+        font-family: 'Playfair Display', serif; /* Elegant Serif */
+        font-size: clamp(3.5rem, 6vw, 5.5rem);
+        margin-bottom: 25px;
+        line-height: 1.1;
+        font-weight: 700;
+    }
+
+    .text-white {
+        color: #ffffff !important;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .text-gold {
+        color: #d4af37 !important; /* Antique Gold */
+        background: linear-gradient(to right, #f4e4bc, #d4af37);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+    }
+
+    .hero-subtitle {
+        color: #f4e4bc !important; /* Parchment Color */
+        font-family: 'Quicksand', sans-serif;
+        font-size: 1.2rem;
+        max-width: 580px;
+        margin-bottom: 45px;
+        line-height: 1.8;
+        opacity: 0.9;
+    }
+
+    /* 5. Visual Area - Gold-Framed Portal */
+    .hero-visual-area {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .image-portal-frame {
+        position: relative;
+        padding: 12px; 
+        background: rgba(212, 175, 55, 0.1);
+        backdrop-filter: blur(10px);
+        border: 2px solid #d4af37; /* Gold Border */
+        border-radius: 30px;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+        animation: floating 6s ease-in-out infinite;
+    }
+
+    .hero-image-styled {
+        width: 100%;
+        max-width: 520px;
+        height: auto;
+        border-radius: 18px;
+        display: block;
+        transition: filter 0.5s ease;
+    }
+
+    /* 6. Button Styling - Royal Gold */
+    .btn-royal-gold {
+        display: inline-block;
+        text-decoration: none;
+        background: #d4af37 !important; /* Antique Gold */
+        color: #0a2e24 !important; /* Contrast Emerald Text */
+        padding: 20px 55px;
+        border-radius: 10px; /* More sophisticated than 100px pill */
+        font-weight: 800;
+        font-size: 1rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-family: 'Playfair Display', serif;
+        transition: 0.4s;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-royal-gold:hover {
+        transform: translateY(-5px);
+        background: #f4e4bc !important; /* Lighter Parchment on hover */
+        box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+    }
+
+    /* Animations */
+    @keyframes floating {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+
+    /* Mobile Logic */
+    @media (max-width: 992px) {
+        .hero-split-container { flex-direction: column; text-align: center; }
+        .hero-text-content { order: 2; }
+        .hero-visual-area { order: 1; margin-bottom: 50px; }
+        .hero-image-styled { max-width: 100%; }
+        .hero-subtitle { margin-left: auto; margin-right: auto; }
+    }
+</style>
+
+<div class="hero-fluid-wrapper">
+    <div class="hero-split-container">
+        
+        <div class="hero-text-content">
+            <span class="hero-tagline">Nirvana Heritage Studio</span>
+            <h1 class="hero-title">
+                <span class="text-white">Artistry in</span> 
+                <br>
+                <span class="text-gold">Eternal Frames</span>
+            </h1>
+            <p class="hero-subtitle">
+                Transform your memories into heritage-grade art. 
+                Experience the harmony of modern AI precision and classic artisan aesthetics.
+            </p>
+            <div class="hero-actions">
+                <a href="{{ url_for('create') }}" class="btn-royal-gold">
+                    Enter the Studio
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-visual-area">
+            <div class="image-portal-frame">
+                <img src="{{ url_for('static', filename='images/home.png') }}" 
+                     class="hero-image-styled" 
+                     alt="Heritage Art Mastery">
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
