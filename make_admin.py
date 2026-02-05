@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+/usr/bin/env python3
 """
 Helper script to make a user an admin
 Run this script to promote an existing user to admin status
